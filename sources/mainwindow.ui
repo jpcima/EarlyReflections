@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1262</width>
+    <height>504</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QwtPlot" name="plot"/>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QFrame" name="frame">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="6" column="2">
+          <widget class="QwtTextLabel" name="TextLabel">
+           <property name="plainText">
+            <string>Tap count</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="4">
+          <widget class="QwtTextLabel" name="TextLabel_3">
+           <property name="plainText">
+            <string>Seed</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0" colspan="5">
+          <widget class="QLabel" name="leftHeadLabel">
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Left</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="4">
+          <widget class="QSpinBox" name="leftSeedSpinBox">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>65536</number>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QwtKnob" name="leftTapCountKnob">
+           <property name="font">
+            <font>
+             <pointsize>7</pointsize>
+            </font>
+           </property>
+           <property name="lowerBound">
+            <double>5.000000000000000</double>
+           </property>
+           <property name="upperBound">
+            <double>50.000000000000000</double>
+           </property>
+           <property name="scaleMaxMajor">
+            <number>10</number>
+           </property>
+           <property name="scaleMaxMinor">
+            <number>5</number>
+           </property>
+           <property name="value">
+            <double>20.000000000000000</double>
+           </property>
+           <property name="markerStyle">
+            <enum>QwtKnob::Triangle</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QwtKnob" name="leftFadeOutKnob">
+           <property name="font">
+            <font>
+             <pointsize>7</pointsize>
+            </font>
+           </property>
+           <property name="upperBound">
+            <double>1.000000000000000</double>
+           </property>
+           <property name="scaleMaxMajor">
+            <number>10</number>
+           </property>
+           <property name="scaleMaxMinor">
+            <number>5</number>
+           </property>
+           <property name="value">
+            <double>0.150000000000000</double>
+           </property>
+           <property name="markerStyle">
+            <enum>QwtKnob::Triangle</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QwtKnob" name="leftRandomSpreadKnob">
+           <property name="font">
+            <font>
+             <pointsize>7</pointsize>
+            </font>
+           </property>
+           <property name="upperBound">
+            <double>1.000000000000000</double>
+           </property>
+           <property name="scaleMaxMajor">
+            <number>10</number>
+           </property>
+           <property name="scaleMaxMinor">
+            <number>5</number>
+           </property>
+           <property name="value">
+            <double>0.200000000000000</double>
+           </property>
+           <property name="markerStyle">
+            <enum>QwtKnob::Triangle</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="0">
+          <widget class="QwtTextLabel" name="qwtTextLabel">
+           <property name="plainText">
+            <string>Fade out</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="1">
+          <widget class="QwtTextLabel" name="TextLabel_2">
+           <property name="plainText">
+            <string>Random spread</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="3">
+          <widget class="QwtKnob" name="leftGainSpreadKnob">
+           <property name="font">
+            <font>
+             <pointsize>7</pointsize>
+            </font>
+           </property>
+           <property name="lowerBound">
+            <double>0.000000000000000</double>
+           </property>
+           <property name="upperBound">
+            <double>0.500000000000000</double>
+           </property>
+           <property name="scaleMaxMajor">
+            <number>5</number>
+           </property>
+           <property name="scaleMaxMinor">
+            <number>5</number>
+           </property>
+           <property name="value">
+            <double>0.200000000000000</double>
+           </property>
+           <property name="markerStyle">
+            <enum>QwtKnob::Triangle</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="3">
+          <widget class="QwtTextLabel" name="TextLabel_7">
+           <property name="plainText">
+            <string>Gain spread</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QFrame" name="frame_3">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_3">
+         <item row="2" column="0">
+          <widget class="QwtTextLabel" name="TextLabel_9">
+           <property name="plainText">
+            <string>Range (ms)</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QwtKnob" name="rangeKnob">
+           <property name="upperBound">
+            <double>200.000000000000000</double>
+           </property>
+           <property name="scaleMaxMajor">
+            <number>5</number>
+           </property>
+           <property name="scaleMaxMinor">
+            <number>10</number>
+           </property>
+           <property name="value">
+            <double>100.000000000000000</double>
+           </property>
+           <property name="markerStyle">
+            <enum>QwtKnob::Triangle</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QPushButton" name="dataButton">
+           <property name="text">
+            <string>Data</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QFrame" name="frame_2">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_2">
+         <item row="1" column="2">
+          <widget class="QwtKnob" name="rightTapCountKnob">
+           <property name="font">
+            <font>
+             <pointsize>7</pointsize>
+            </font>
+           </property>
+           <property name="lowerBound">
+            <double>5.000000000000000</double>
+           </property>
+           <property name="upperBound">
+            <double>50.000000000000000</double>
+           </property>
+           <property name="scaleMaxMajor">
+            <number>10</number>
+           </property>
+           <property name="scaleMaxMinor">
+            <number>5</number>
+           </property>
+           <property name="value">
+            <double>20.000000000000000</double>
+           </property>
+           <property name="markerStyle">
+            <enum>QwtKnob::Triangle</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QwtKnob" name="rightRandomSpreadKnob">
+           <property name="font">
+            <font>
+             <pointsize>7</pointsize>
+            </font>
+           </property>
+           <property name="upperBound">
+            <double>1.000000000000000</double>
+           </property>
+           <property name="scaleMaxMajor">
+            <number>10</number>
+           </property>
+           <property name="scaleMaxMinor">
+            <number>5</number>
+           </property>
+           <property name="value">
+            <double>0.200000000000000</double>
+           </property>
+           <property name="markerStyle">
+            <enum>QwtKnob::Triangle</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0" colspan="5">
+          <widget class="QLabel" name="rightHeadLabel">
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Right</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="2">
+          <widget class="QwtTextLabel" name="TextLabel_4">
+           <property name="plainText">
+            <string>Tap count</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="1">
+          <widget class="QwtTextLabel" name="TextLabel_6">
+           <property name="plainText">
+            <string>Random spread</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="4">
+          <widget class="QwtTextLabel" name="TextLabel_5">
+           <property name="plainText">
+            <string>Seed</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QwtKnob" name="rightFadeOutKnob">
+           <property name="font">
+            <font>
+             <pointsize>7</pointsize>
+            </font>
+           </property>
+           <property name="upperBound">
+            <double>1.000000000000000</double>
+           </property>
+           <property name="scaleMaxMajor">
+            <number>10</number>
+           </property>
+           <property name="scaleMaxMinor">
+            <number>5</number>
+           </property>
+           <property name="value">
+            <double>0.150000000000000</double>
+           </property>
+           <property name="markerStyle">
+            <enum>QwtKnob::Triangle</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="0">
+          <widget class="QwtTextLabel" name="qwtTextLabel_2">
+           <property name="plainText">
+            <string>Fade out</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="4">
+          <widget class="QSpinBox" name="rightSeedSpinBox">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>65536</number>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="3">
+          <widget class="QwtKnob" name="rightGainSpreadKnob">
+           <property name="font">
+            <font>
+             <pointsize>7</pointsize>
+            </font>
+           </property>
+           <property name="lowerBound">
+            <double>0.000000000000000</double>
+           </property>
+           <property name="upperBound">
+            <double>0.500000000000000</double>
+           </property>
+           <property name="scaleMaxMajor">
+            <number>5</number>
+           </property>
+           <property name="scaleMaxMinor">
+            <number>5</number>
+           </property>
+           <property name="value">
+            <double>0.200000000000000</double>
+           </property>
+           <property name="markerStyle">
+            <enum>QwtKnob::Triangle</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="3">
+          <widget class="QwtTextLabel" name="TextLabel_8">
+           <property name="plainText">
+            <string>Gain spread</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1262</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QwtPlot</class>
+   <extends>QFrame</extends>
+   <header>qwt_plot.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QwtKnob</class>
+   <extends>QWidget</extends>
+   <header>qwt_knob.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QwtTextLabel</class>
+   <extends>QFrame</extends>
+   <header>qwt_text_label.h</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>leftFadeOutKnob</tabstop>
+  <tabstop>leftRandomSpreadKnob</tabstop>
+  <tabstop>leftTapCountKnob</tabstop>
+  <tabstop>leftGainSpreadKnob</tabstop>
+  <tabstop>leftSeedSpinBox</tabstop>
+  <tabstop>rangeKnob</tabstop>
+  <tabstop>rightFadeOutKnob</tabstop>
+  <tabstop>rightRandomSpreadKnob</tabstop>
+  <tabstop>rightTapCountKnob</tabstop>
+  <tabstop>rightGainSpreadKnob</tabstop>
+  <tabstop>rightSeedSpinBox</tabstop>
+  <tabstop>Knob_2</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>
