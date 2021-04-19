@@ -2,7 +2,7 @@
 #include <cstring>
 #include <cmath>
 
-static const float kMaxHistoryDelay = 200e-3;
+static const float kMaxHistoryDelay = 1.0f;
 
 void ERproc::init(float sampleRate)
 {
