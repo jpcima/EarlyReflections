@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "app.h"
 #include "ui_mainwindow.h"
 #include "ui_datadialog.h"
 #include "ergen.h"
@@ -24,6 +25,9 @@ struct MainWindow::Impl {
     void regenerateLater();
     void setupCurves(const ERgen& leftGen, const ERgen& rightGen, double timeRange);
 };
+
+///
+static constexpr double kMinRandomSpead = 0.01;
 
 ///
 static const QColor fadeColors[2] = {Qt::green, Qt::magenta};
@@ -81,7 +85,7 @@ void MainWindow::Impl::regenerate()
 
     ERgen::Setup leftSetup;
     leftSetup.fade = ui.leftFadeOutKnob->value();
-    leftSetup.rho = ui.leftRandomSpreadKnob->value();
+    leftSetup.rho = std::max(kMinRandomSpead, ui.leftRandomSpreadKnob->value());
     leftSetup.numTaps = (int)ui.leftTapCountKnob->value();
     leftSetup.gainSpread = ui.leftGainSpreadKnob->value();
     leftSetup.numPoints = 256;
@@ -93,7 +97,7 @@ void MainWindow::Impl::regenerate()
 
     ERgen::Setup rightSetup;
     rightSetup.fade = ui.rightFadeOutKnob->value();
-    rightSetup.rho = ui.rightRandomSpreadKnob->value();
+    rightSetup.rho = std::max(kMinRandomSpead, ui.rightRandomSpreadKnob->value());
     rightSetup.numTaps = (int)ui.rightTapCountKnob->value();
     rightSetup.gainSpread = ui.rightGainSpreadKnob->value();
     rightSetup.numPoints = 256;
@@ -129,9 +133,10 @@ void MainWindow::Impl::setupCurves(const ERgen& leftGen, const ERgen& rightGen, 
     const ERgen* LRgen[2] = {&leftGen, &rightGen};
 
     int numPoints = LRgen[0]->getNumPoints();
-    int numTapPoints = LRgen[0]->getNumTaps();
     Q_ASSERT(numPoints == LRgen[1]->getNumPoints());
-    Q_ASSERT(numTapPoints == LRgen[1]->getNumTaps());
+
+    int numLeftTaps = LRgen[0]->getNumTaps();
+    int numRightTaps = LRgen[1]->getNumTaps();
 
     plot->detachItems();
 
@@ -177,7 +182,7 @@ void MainWindow::Impl::setupCurves(const ERgen& leftGen, const ERgen& rightGen, 
         QwtPlotCurve* tapsCurve = new QwtPlotCurve(tr("Taps"));
         tapsCurve->setStyle(QwtPlotCurve::Sticks);
         tapsCurve->setPen(tapsColors[channel], 0.0, Qt::SolidLine);
-        tapsCurve->setSamples(positions, gains, numTapPoints);
+        tapsCurve->setSamples(positions, gains, gen.getNumTaps());
         tapsCurve->attach(plot);
     }
 
@@ -186,11 +191,15 @@ void MainWindow::Impl::setupCurves(const ERgen& leftGen, const ERgen& rightGen, 
     plot->replot();
 
     ///
+    const double* leftPositions = LRgen[0]->getPositions();
+    const double* rightPositions = LRgen[1]->getPositions();
+    const double* leftGains = LRgen[0]->getGains();
+    const double* rightGains = LRgen[1]->getGains();
+
+    static_cast<Application*>(qApp)->setStereoER(leftPositions, rightPositions, leftGains, rightGains, numLeftTaps, numRightTaps, timeRange);
+
+    ///
     {
-        const double* leftPositions = LRgen[0]->getPositions();
-        const double* rightPositions = LRgen[1]->getPositions();
-        const double* leftGains = LRgen[0]->getGains();
-        const double* rightGains = LRgen[1]->getGains();
 
         QByteArray textByteArray;
         textByteArray.reserve(8192);
@@ -202,10 +211,19 @@ void MainWindow::Impl::setupCurves(const ERgen& leftGen, const ERgen& rightGen, 
                    << "Right delay" << "Right gain";
         textStream.setFieldWidth(0);
         textStream << '\n';
-        for (int i = 0; i < numTapPoints; ++i) {
+        for (int i = 0; i < std::max(numLeftTaps, numRightTaps); ++i) {
             textStream.setFieldWidth(fieldWidth);
-            textStream << (timeRange * leftPositions[i]) << leftGains[i]
-                       << (timeRange * rightPositions[i]) << rightGains[i];
+
+            if (i < numLeftTaps)
+                textStream << (timeRange * leftPositions[i]) << leftGains[i];
+            else
+                textStream << '_' << '_';
+
+            if (i < numRightTaps)
+                textStream << (timeRange * rightPositions[i]) << rightGains[i];
+            else
+                textStream << '_' << '_';
+
             textStream.setFieldWidth(0);
             textStream << '\n';
         }
