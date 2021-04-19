@@ -262,7 +262,7 @@ void MainWindow::Impl::setupCurves(const ERgen& leftGen, const ERgen& rightGen, 
         textStream << "process = leftER, rightER;\n\n";
 
         textStream << "leftER(x) = sum(i, ntaps, g(i)*(x@(d(i)*ma.SR))) with {\n"
-            "  ntaps = " << numLeftTaps << ";";
+            "  ntaps = " << numLeftTaps << ";\n";
         for (int i = 0; i < numLeftTaps; ++i) {
             textStream << "  d(" << i << ") = " << (timeRange * leftPositions[i])
                        << "; g(" << i << ") = " << leftGains[i] << ";\n";
@@ -272,7 +272,7 @@ void MainWindow::Impl::setupCurves(const ERgen& leftGen, const ERgen& rightGen, 
         textStream << "\n";
 
         textStream << "rightER(x) = sum(i, ntaps, g(i)*(x@(d(i)*ma.SR))) with {\n"
-            "  ntaps = " << numRightTaps << ";";
+            "  ntaps = " << numRightTaps << ";\n";
         for (int i = 0; i < numRightTaps; ++i) {
             textStream << "  d(" << i << ") = " << (timeRange * rightPositions[i])
                        << "; g(" << i << ") = " << rightGains[i] << ";\n";
