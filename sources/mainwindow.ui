@@ -154,7 +154,7 @@
          <item row="6" column="1">
           <widget class="QwtTextLabel" name="TextLabel_2">
            <property name="plainText">
-            <string>Random spread</string>
+            <string>Delay spread</string>
            </property>
           </widget>
          </item>
@@ -329,7 +329,7 @@
          <item row="6" column="1">
           <widget class="QwtTextLabel" name="TextLabel_6">
            <property name="plainText">
-            <string>Random spread</string>
+            <string>Delay spread</string>
            </property>
           </widget>
          </item>
