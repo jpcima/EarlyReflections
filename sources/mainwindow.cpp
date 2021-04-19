@@ -5,6 +5,7 @@
 #include "ergen.h"
 #include <qwt_plot_curve.h>
 #include <qwt_plot_grid.h>
+#include <qwt_symbol.h>
 #include <QDialog>
 #include <QFontDatabase>
 #include <QTimer>
@@ -199,6 +200,7 @@ void MainWindow::Impl::setupCurves(const ERgen& leftGen, const ERgen& rightGen, 
         tapsCurve->setStyle(QwtPlotCurve::Sticks);
         tapsCurve->setPen(tapsColors[channel], 0.0, Qt::SolidLine);
         tapsCurve->setSamples(positions, gains, gen.getNumTaps());
+        tapsCurve->setSymbol(new QwtSymbol(QwtSymbol::Ellipse, tapsColors[channel], tapsColors[channel], QSize(6, 6)));
         tapsCurve->attach(plot);
     }
 
