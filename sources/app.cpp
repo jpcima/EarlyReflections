@@ -42,6 +42,11 @@ void Application::setStereoER(const double* leftPositions, const double* rightPo
     erProc_[1].setER(rightPositions, rightGains, numRightTaps, positionScale);
 }
 
+void Application::setBypassed(bool bypassed)
+{
+    bypassed_ = bypassed;
+}
+
 int Application::processAudio(jack_nframes_t nframes, void* userData)
 {
     Application* self = reinterpret_cast<Application*>(userData);
@@ -54,10 +59,15 @@ int Application::processAudio(jack_nframes_t nframes, void* userData)
         outputs[channel] = (float*)jack_port_get_buffer(self->outPort_[channel], nframes);
     }
 
-    std::unique_lock<std::mutex> lock(self->processLock_, std::try_to_lock);
-    if (!lock.owns_lock()) {
-        for (int channel = 0; channel < 2; ++channel)
-            std::memset(outputs[channel], 0, nframes * sizeof(float));
+    bool bypassed = self->bypassed_;
+    std::unique_lock<std::mutex> lock(self->processLock_, std::defer_lock);
+    if (!bypassed)
+        lock.try_lock();
+    if (bypassed || !lock.owns_lock()) {
+        for (int channel = 0; channel < 2; ++channel) {
+            if (outputs[channel] != inputs[channel])
+                std::memcpy(outputs[channel], inputs[channel], nframes * sizeof(float));
+        }
         return 0;
     }
 

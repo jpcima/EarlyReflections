@@ -24,6 +24,7 @@ struct MainWindow::Impl {
     void regenerate();
     void regenerateLater();
     void setupCurves(const ERgen& leftGen, const ERgen& rightGen, double timeRange);
+    void setBypassed(bool bypassed);
 };
 
 ///
@@ -59,6 +60,8 @@ MainWindow::MainWindow()
     connect(ui.rangeKnob, &QwtKnob::valueChanged, this, [this]() { impl_->regenerateLater(); });
 
     connect(ui.dataButton, &QAbstractButton::clicked, this, [this]() { impl_->dataDialog_->show(); });
+
+    connect(ui.bypassButton, &QAbstractButton::toggled, this, [this](bool value) { impl_->setBypassed(value); });
 
     QLabel* headLabels[2] = {ui.leftHeadLabel, ui.rightHeadLabel};
     for (int channel = 0; channel < 2; ++channel) {
@@ -233,4 +236,9 @@ void MainWindow::Impl::setupCurves(const ERgen& leftGen, const ERgen& rightGen, 
 
         uiDataDialog_.textBrowser->setPlainText(dataText_);
     }
+}
+
+void MainWindow::Impl::setBypassed(bool bypassed)
+{
+    static_cast<Application*>(qApp)->setBypassed(bypassed);
 }

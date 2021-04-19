@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1262</width>
-    <height>704</height>
+    <height>504</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -234,10 +234,50 @@
           </widget>
          </item>
          <item row="0" column="0">
-          <widget class="QPushButton" name="dataButton">
-           <property name="text">
-            <string>Data</string>
+          <widget class="QFrame" name="frame_4">
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
            </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QPushButton" name="dataButton">
+              <property name="text">
+               <string>Data</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QToolButton" name="bypassButton">
+              <property name="toolTip">
+               <string>Bypass</string>
+              </property>
+              <property name="text">
+               <string>Bypass</string>
+              </property>
+              <property name="icon">
+               <iconset theme="process-stop"/>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </item>
         </layout>

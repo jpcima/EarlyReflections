@@ -11,6 +11,7 @@ public:
     void init();
 
     void setStereoER(const double* leftPositions, const double* rightPositions, const double* leftGains, const double* rightGains, unsigned numLeftTaps, unsigned numRightTaps, double positionScale);
+    void setBypassed(bool bypassed);
 
 private:
     static int processAudio(jack_nframes_t nframes, void* userData);
@@ -21,6 +22,7 @@ private:
     };
 
     ERproc erProc_[2];
+    bool bypassed_ = false;
     std::mutex processLock_;
     jack_port_t* inPort_[2] = {};
     jack_port_t* outPort_[2] = {};
