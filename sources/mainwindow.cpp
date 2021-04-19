@@ -20,6 +20,10 @@ struct MainWindow::Impl {
     Ui::DataDialog uiDataDialog_;
     QString dataText_;
 
+    QDialog* faustDialog_ = nullptr;
+    Ui::DataDialog uiFaustDialog_;
+    QString faustText_;
+
     ///
     void regenerate();
     void regenerateLater();
@@ -60,6 +64,7 @@ MainWindow::MainWindow()
     connect(ui.rangeKnob, &QwtKnob::valueChanged, this, [this]() { impl_->regenerateLater(); });
 
     connect(ui.dataButton, &QAbstractButton::clicked, this, [this]() { impl_->dataDialog_->show(); });
+    connect(ui.faustButton, &QAbstractButton::clicked, this, [this]() { impl_->faustDialog_->show(); });
 
     connect(ui.bypassButton, &QAbstractButton::toggled, this, [this](bool value) { impl_->setBypassed(value); });
 
@@ -77,6 +82,14 @@ MainWindow::MainWindow()
     dataDialog->setWindowTitle(tr("Data"));
     QTextBrowser* dataTextBrowser = impl.uiDataDialog_.textBrowser;
     dataTextBrowser->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+
+    ///
+    QDialog* faustDialog = new QDialog(this);
+    impl.faustDialog_ = faustDialog;
+    impl.uiFaustDialog_.setupUi(faustDialog);
+    faustDialog->setWindowTitle(tr("Faust"));
+    QTextBrowser* faustTextBrowser = impl.uiFaustDialog_.textBrowser;
+    faustTextBrowser->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
 
     ///
     impl.regenerateLater();
@@ -235,6 +248,42 @@ void MainWindow::Impl::setupCurves(const ERgen& leftGen, const ERgen& rightGen, 
         dataText_ = QString::fromUtf8(textByteArray);
 
         uiDataDialog_.textBrowser->setPlainText(dataText_);
+    }
+
+    ///
+    {
+        QByteArray textByteArray;
+        textByteArray.reserve(8192);
+
+        QTextStream textStream(&textByteArray);
+
+        textStream << "import(\"stdfaust.lib\");\n\n";
+
+        textStream << "process = leftER, rightER;\n\n";
+
+        textStream << "leftER(x) = sum(i, ntaps, g(i)*(x@(d(i)*ma.SR))) with {\n"
+            "  ntaps = " << numLeftTaps << ";";
+        for (int i = 0; i < numLeftTaps; ++i) {
+            textStream << "  d(" << i << ") = " << (timeRange * leftPositions[i])
+                       << "; g(" << i << ") = " << leftGains[i] << ";\n";
+        }
+        textStream << "};\n";
+
+        textStream << "\n";
+
+        textStream << "rightER(x) = sum(i, ntaps, g(i)*(x@(d(i)*ma.SR))) with {\n"
+            "  ntaps = " << numRightTaps << ";";
+        for (int i = 0; i < numRightTaps; ++i) {
+            textStream << "  d(" << i << ") = " << (timeRange * rightPositions[i])
+                       << "; g(" << i << ") = " << rightGains[i] << ";\n";
+        }
+        textStream << "};\n";
+
+        textStream.flush();
+
+        faustText_ = QString::fromUtf8(textByteArray);
+
+        uiFaustDialog_.textBrowser->setPlainText(faustText_);
     }
 }
 

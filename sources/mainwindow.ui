@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1262</width>
+    <width>1330</width>
     <height>504</height>
    </rect>
   </property>
@@ -262,6 +262,13 @@
              </widget>
             </item>
             <item>
+             <widget class="QPushButton" name="faustButton">
+              <property name="text">
+               <string>Faust</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QToolButton" name="bypassButton">
               <property name="toolTip">
                <string>Bypass</string>
@@ -467,7 +474,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1262</width>
+     <width>1330</width>
      <height>22</height>
     </rect>
    </property>
