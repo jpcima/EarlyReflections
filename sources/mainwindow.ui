@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1262</width>
-    <height>504</height>
+    <height>704</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -213,8 +213,11 @@
          </item>
          <item row="1" column="0">
           <widget class="QwtKnob" name="rangeKnob">
+           <property name="lowerBound">
+            <double>50.000000000000000</double>
+           </property>
            <property name="upperBound">
-            <double>200.000000000000000</double>
+            <double>250.000000000000000</double>
            </property>
            <property name="scaleMaxMajor">
             <number>5</number>
@@ -460,7 +463,6 @@
   <tabstop>rightTapCountKnob</tabstop>
   <tabstop>rightGainSpreadKnob</tabstop>
   <tabstop>rightSeedSpinBox</tabstop>
-  <tabstop>Knob_2</tabstop>
  </tabstops>
  <resources/>
  <connections/>
